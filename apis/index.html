@@ -34,6 +34,30 @@
             </tbody>
         </table>
     </main>
+    <script>
+        const getUser = async function (userName) {
+            const response = await fetch(`https://api.github.com/users/${userName}`);
+            const user = await response.json();
+            return user;
+        }
+
+        const btn = document.querySelector("button");
+        
+        btn.addEventListener("click", async function () {
+            const name = document.querySelector("#fullName");
+            const bio = document.querySelector("#bio");
+            const profilepict = document.querySelector("#profilePicture");
+            const home = document.querySelector("#homeUrl");
+
+            const user = document.querySelector("#username");
+            let userInfo = await getUser(user.value);
+
+            name.textContent = userInfo.name;
+            bio.textContent = userInfo.bio;
+            profilepict.src =  userInfo.avatar_url;
+            home.textContent = userInfo.html_url;
+        });
+    </script>
 </body>
 
 </html>
